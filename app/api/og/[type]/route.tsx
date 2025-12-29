@@ -94,11 +94,11 @@ export async function GET(
                 display: "flex",
                 fontSize: 24,
                 color: "#6b7280",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-              }}
-            >
-              My Workplace Diagnosis
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+            }}
+          >
+            My Workplace Diagnosis
             </div>
           </div>
 
