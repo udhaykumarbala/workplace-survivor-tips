@@ -29,6 +29,15 @@ export async function GET(
     return new Response("Invalid result type", { status: 400 });
   }
 
+  // Get the base URL for fetching the logo
+  const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
+  
+  // Fetch the logo image
+  const logoResponse = await fetch(`${baseUrl}/doilovemyjob.jpg`);
+  const logoBuffer = await logoResponse.arrayBuffer();
+  const logoBase64 = `data:image/jpeg;base64,${Buffer.from(logoBuffer).toString('base64')}`;
+
   const content = resultContent[type as ResultType];
   const frustrationPercent = calculateFrustrationPercentage(score);
   const gradient = gradientStyles[type as ResultType];
@@ -62,22 +71,41 @@ export async function GET(
             maxWidth: "900px",
           }}
         >
-          {/* Label */}
+          {/* Logo and Label row */}
           <div
             style={{
-              fontSize: 24,
-              color: "#6b7280",
+              display: "flex",
+              alignItems: "center",
+              gap: 16,
               marginBottom: 16,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
             }}
           >
-            My Workplace Diagnosis
+            <img
+              src={logoBase64}
+              alt="Logo"
+              width={60}
+              height={60}
+              style={{
+                borderRadius: 10,
+              }}
+            />
+            <div
+              style={{
+                display: "flex",
+                fontSize: 24,
+                color: "#6b7280",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              My Workplace Diagnosis
+            </div>
           </div>
 
           {/* Result title */}
           <div
             style={{
+              display: "flex",
               fontSize: 64,
               fontWeight: "bold",
               color: "#1f2937",
@@ -125,6 +153,7 @@ export async function GET(
           >
             <div
               style={{
+                display: "flex",
                 fontSize: 16,
                 color: "#6b7280",
                 marginBottom: 8,
@@ -153,6 +182,7 @@ export async function GET(
             </div>
             <div
               style={{
+                display: "flex",
                 fontSize: 28,
                 fontWeight: 600,
                 color: "#374151",
@@ -166,6 +196,7 @@ export async function GET(
           {/* Site URL */}
           <div
             style={{
+              display: "flex",
               fontSize: 20,
               color: "#9ca3af",
               marginTop: 32,

@@ -7,6 +7,15 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const challengeFrom = searchParams.get("from") || "Someone";
 
+  // Get the base URL for fetching the logo
+  const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
+  
+  // Fetch the logo image
+  const logoResponse = await fetch(`${baseUrl}/doilovemyjob.jpg`);
+  const logoBuffer = await logoResponse.arrayBuffer();
+  const logoBase64 = `data:image/jpeg;base64,${Buffer.from(logoBuffer).toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -36,15 +45,17 @@ export async function GET(request: NextRequest) {
             maxWidth: "1000px",
           }}
         >
-          {/* Challenge emoji */}
-          <div
+          {/* Logo */}
+          <img
+            src={logoBase64}
+            alt="Logo"
+            width={80}
+            height={80}
             style={{
-              fontSize: 80,
-              marginBottom: 24,
+              borderRadius: 12,
+              marginBottom: 16,
             }}
-          >
-            🎯
-          </div>
+          />
 
           {/* Challenge text */}
           <div

@@ -1,8 +1,18 @@
 import { ImageResponse } from "next/og";
+import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Get the base URL for fetching the logo
+  const url = new URL(request.url);
+  const baseUrl = `${url.protocol}//${url.host}`;
+  
+  // Fetch the logo image
+  const logoResponse = await fetch(`${baseUrl}/doilovemyjob.jpg`);
+  const logoBuffer = await logoResponse.arrayBuffer();
+  const logoBase64 = `data:image/jpeg;base64,${Buffer.from(logoBuffer).toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -32,15 +42,17 @@ export async function GET() {
             maxWidth: "1000px",
           }}
         >
-          {/* Logo emoji */}
-          <div
+          {/* Logo */}
+          <img
+            src={logoBase64}
+            alt="Logo"
+            width={100}
+            height={100}
             style={{
-              fontSize: 80,
+              borderRadius: 16,
               marginBottom: 24,
             }}
-          >
-            🤔
-          </div>
+          />
 
           {/* Title */}
           <div

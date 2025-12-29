@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 
@@ -15,8 +16,17 @@ export default function AboutPage() {
         className="pt-6 px-4"
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-lg font-semibold text-gray-700 hover:text-gray-800 transition-colors">
-            Do I Love My Job?
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Image
+              src="/doilovemyjob.jpg"
+              alt="Do I Love My Job? Logo"
+              width={40}
+              height={40}
+              className="rounded-lg"
+            />
+            <span className="text-lg font-semibold text-gray-700">
+              Do I Love My Job?
+            </span>
           </Link>
           <Link href="/quiz">
             <Button variant="secondary" size="sm">

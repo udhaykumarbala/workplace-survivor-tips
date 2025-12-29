@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { WRAP_YEAR } from "@/lib/wrap/constants";
@@ -34,9 +35,18 @@ export default function HomePage() {
         className="pt-6 px-4"
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-lg font-semibold text-gray-700">
-            Do I Love My Job?
-          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/doilovemyjob.jpg"
+              alt="Do I Love My Job? Logo"
+              width={40}
+              height={40}
+              className="rounded-lg"
+            />
+            <span className="text-lg font-semibold text-gray-700">
+              Do I Love My Job?
+            </span>
+          </Link>
           <Link
             href="/about"
             className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
